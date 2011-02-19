@@ -1,6 +1,7 @@
 package org.robotlegs.base
 {
 	import org.osflash.signals.ISignal;
+	import org.osflash.signals.Signal;
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.ISignalCommandMap;
 
@@ -42,6 +43,15 @@ package org.robotlegs.base
             var signal:ISignal = getSignalClassInstance( signalClass );
             mapSignal( signal, commandClass, oneShot );
             return signal;
+        }
+
+        public function dispatch(clazz:Class, ... params):Boolean
+        {
+            var signal:Signal = injector.getInstance(clazz);
+            var isSignal:Boolean = signal != null;
+            signal.dispatch.apply(this, params);
+            
+            return isSignal;
         }
 
         private function getSignalClassInstance(signalClass:Class):ISignal

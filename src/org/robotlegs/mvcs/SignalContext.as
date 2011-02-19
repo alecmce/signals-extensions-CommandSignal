@@ -1,6 +1,5 @@
 package org.robotlegs.mvcs
 {
-	import org.osflash.signals.Signal;
 	import org.robotlegs.base.SignalCommandMap;
 	import org.robotlegs.core.ISignalCommandMap;
 	import org.robotlegs.core.ISignalContext;
@@ -32,13 +31,5 @@ package org.robotlegs.mvcs
             injector.mapValue(ISignalCommandMap, signalCommandMap);
         }
         
-        public function dispatch(clazz:Class, ... params):Boolean
-        {
-            var signal:Signal = injector.getInstance(clazz);
-            var isSignal:Boolean = signal != null;
-            signal.dispatch.apply(this, params);
-            
-            return isSignal;
-        }
     }
 }
