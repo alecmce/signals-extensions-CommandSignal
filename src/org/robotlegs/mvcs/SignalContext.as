@@ -1,9 +1,11 @@
 package org.robotlegs.mvcs
 {
+	import org.osflash.signals.Signal;
+	import org.robotlegs.base.SignalCommandMap;
+	import org.robotlegs.core.ISignalCommandMap;
+	import org.robotlegs.core.ISignalContext;
+
 	import flash.display.DisplayObjectContainer;
-    import org.robotlegs.base.SignalCommandMap;
-    import org.robotlegs.core.ISignalCommandMap;
-    import org.robotlegs.core.ISignalContext;
 
     public class SignalContext extends Context implements ISignalContext
     {
@@ -28,6 +30,15 @@ package org.robotlegs.mvcs
         {
             super.mapInjections();
             injector.mapValue(ISignalCommandMap, signalCommandMap);
+        }
+        
+        public function dispatch(clazz:Class, ... params):Boolean
+        {
+        	var signal:Signal = injector.getInstance(clazz);
+        	var isSignal:Boolean = signal != null;
+			signal.dispatch.apply(this, params);       	
+        		
+        	return isSignal;
         }
     }
 }
