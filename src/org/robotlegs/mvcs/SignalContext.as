@@ -34,11 +34,11 @@ package org.robotlegs.mvcs
         
         public function dispatch(clazz:Class, ... params):Boolean
         {
-        	var signal:Signal = injector.getInstance(clazz);
+			var signal:Signal = injector.getInstance(clazz);
         	var isSignal:Boolean = signal != null;
-			signal.dispatch.apply(this, params);       	
-        		
-        	return isSignal;
+			signal.dispatch.apply(this, params);
+			
+			return isSignal;
         }
     }
 }
